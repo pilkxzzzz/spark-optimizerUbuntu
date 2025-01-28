@@ -19,6 +19,23 @@
 
 ## 🛠️ Встановлення
 
+### Метод 1: Швидке встановлення в систему
+
+```bash
+# Клонуємо репозиторій
+git clone https://github.com/pilkxzzzz/spark-optimizerUbuntu.git
+
+# Переходимо в директорію
+cd spark-optimizerUbuntu
+
+# Запускаємо встановлення
+sudo ./install_system.sh
+```
+
+Після встановлення ви знайдете Spark Optimizer в меню програм Ubuntu!
+
+### Метод 2: Запуск без встановлення
+
 ```bash
 # Клонуємо репозиторій
 git clone https://github.com/pilkxzzzz/spark-optimizerUbuntu.git
@@ -32,8 +49,15 @@ cd spark-optimizerUbuntu
 
 ## 🚀 Використання
 
+### Якщо встановлено в систему:
+1. Знайдіть Spark Optimizer в меню програм
+2. Або запустіть в терміналі:
 ```bash
-# Запуск програми
+spark-optimizer
+```
+
+### Якщо запускаєте локально:
+```bash
 sudo ./spark
 ```
 
@@ -66,6 +90,17 @@ sudo ./spark
 Для ручного оновлення:
 ```bash
 ./update.sh
+```
+
+## 🗑️ Видалення
+
+Якщо ви встановили програму в систему і хочете її видалити:
+```bash
+sudo rm /usr/local/bin/spark-optimizer
+sudo rm /usr/share/applications/spark-optimizer.desktop
+sudo rm -r /usr/share/spark-optimizer
+sudo rm /usr/share/polkit-1/actions/com.spark.optimizer.policy
+sudo update-desktop-database /usr/share/applications
 ```
 
 ## 👨‍💻 Розробник
