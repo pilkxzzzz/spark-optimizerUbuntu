@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Spark Optimizer
+Comment=Оптимізатор системи Ubuntu
+Exec=pkexec spark-optimizer
+Icon=/usr/share/spark-optimizer/icon.png
+Terminal=false
+Type=Application
+Categories=System;Settings;
+Keywords=system;optimization;ubuntu;spark;
