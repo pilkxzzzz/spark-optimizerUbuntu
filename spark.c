@@ -479,7 +479,55 @@ void modify_main() {
     printf("%s%sВведіть номер опції:%s ", BRIGHT_CYAN, BOLD, RESET);
 }
 
+int check_for_updates() {
+    printf("\nПеревірка оновлень...\n");
+    
+    // Створюємо тимчасовий файл для виводу git
+    char temp_file[] = "/tmp/spark_update_XXXXXX";
+    int fd = mkstemp(temp_file);
+    if (fd == -1) {
+        printf("Помилка при перевірці оновлень\n");
+        return 0;
+    }
+    close(fd);
+    
+    // Виконуємо git fetch і перевіряємо статус
+    char command[256];
+    snprintf(command, sizeof(command), "git fetch 2>%s", temp_file);
+    system(command);
+    
+    // Перевіряємо чи є нові зміни
+    FILE *fp = popen("git rev-list HEAD...origin/main --count", "r");
+    if (fp == NULL) {
+        unlink(temp_file);
+        return 0;
+    }
+    
+    char buffer[32];
+    fgets(buffer, sizeof(buffer), fp);
+    int changes = atoi(buffer);
+    pclose(fp);
+    unlink(temp_file);
+    
+    if (changes > 0) {
+        printf(YELLOW "\nДоступна нова версія програми!\n");
+        printf("Бажаєте оновити? (y/n): " RESET);
+        char choice;
+        scanf(" %c", &choice);
+        
+        if (choice == 'y' || choice == 'Y') {
+            printf("\nОновлення програми...\n");
+            system("git pull && ./update.sh");
+            printf(GREEN "\nПрограму оновлено! Перезапустіть її.\n" RESET);
+            exit(0);
+        }
+    }
+    
+    return 0;
+}
+
 int main() {
+    check_for_updates();
     int choice;
     do {
         modify_main();
